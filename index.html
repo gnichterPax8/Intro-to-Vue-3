@@ -6,14 +6,51 @@
     <!-- Import Styles -->
     <link rel="stylesheet" href="./assets/styles.css" />
     <!-- Import Vue.js -->
-    <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
   </head>
   <body>
     <div id="app">
-      <h1>Product goes here</h1>
+      <div class="nav-bar"></div>
+      <div class="cart">Cart({{ cart }})</div> 
+      
+      <div class="product-display">
+        <div class="product-container">
+          <div class="product-image">
+            <img :src="image"> 
+          </div>
+          <div class="product-info">
+
+            <h1>{{ product }}</h1>
+            <p v-if="invin > 5"> In Stock</p>
+            <p v-else-if="invin <=5 && invin > 0">Almost Sold Out!</p>
+            <p v-else>Out of Stock</p>
+            <ul>
+              <li v-for="dets in dets">{{dets}}</li>
+            </ul>
+          <div 
+            v-for="Vair in Vair" 
+            :key="Vair.id" 
+            @mouseover="updateImage(Vair.image)"
+            class="color-circle"
+            :style="{ backgroundColor: Vair.color}">
+          </div>
+            <button class="button" 
+            :class="{ disabledButton: invin == 0}"
+            :disabled="invin == 0" 
+            @click="addToCart">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Import Js -->
+    <!-- Import App -->
     <script src="./main.js"></script>
+
+    <!-- Mount App -->
+    <script>
+      const mountedApp = app.mount('#app')
+    </script>
   </body>
 </html>
